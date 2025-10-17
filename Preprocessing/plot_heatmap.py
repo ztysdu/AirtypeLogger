@@ -5,7 +5,17 @@ import shutil
 import os
 import glob
 import pickle
-from utils import image_folder_to_video, display_heatmap
+def display_heatmap(heatmap):
+    heatmap=cv2.resize(heatmap,(W,H))
+    max_num=np.max(heatmap)
+    min_num=np.min(heatmap)
+    if max_num==min_num:
+        return heatmap
+    heatmap=((heatmap-min_num)/(max_num-min_num))
+    heatmap = heatmap * 255
+    heatmap=heatmap.astype(np.uint8)
+    return heatmap
+
 mp_hands = mp.solutions.hands
 hands = mp_hands.Hands()
 mp_drawing = mp.solutions.drawing_utils
@@ -89,7 +99,7 @@ for i in range(len(video_path_list)):
     cap.release()
     with open(os.path.join(temporal_information_folder,video_name+'.pkl'), 'wb') as f:
         pickle.dump(grid, f)
-    image_folder_to_video(heatmap_video_image_folder,os.path.join(heatmap_video_folder,video_name+'.mp4'))
+    # image_folder_to_video(heatmap_video_image_folder,os.path.join(heatmap_video_folder,video_name+'.mp4'))
     cv2.imwrite(os.path.join(heatmap_tgt_folder,video_name+'.png'),heatmap_display_copy)
     
 
