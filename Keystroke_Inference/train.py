@@ -30,7 +30,7 @@ def get_args():
     parser.add_argument("--T_max", type=int, default=3)
     #ablation study
     parser.add_argument("--positional_perturbation", type=bool, default=False)
-    parser.add_argument("--temporal_encoding", type=bool, default=False)
+    parser.add_argument("--temporal_encoding", type=bool, default=True)
     parser.add_argument("--rotational_perturbation", type=bool, default=False)
     parser.add_argument("--description", type=str, default="rotational_perturbation_0_temporal_0_rotational_perturbation_0")
 
